@@ -49,21 +49,24 @@ export const Register = () => {
     formRegister.appendChild(inputPassword);
     formRegister.appendChild(buttonRegister);
     formRegister.appendChild(btnGoBack);
-    //no pasa valores en console
-    console.log(inputEmail.value, inputPassword.value)
-    //event listener signup
+    //vista de los inputs
+    //console.log(inputEmail.value, inputPassword.value)
+
+
+    //Registro de usuario primera vez, auth con Firebase
     formRegister.addEventListener('submit', async (e) => { // submit pertenece form
 
         e.preventDefault();
         const email = inputEmail.value;
         const password = inputPassword.value;
-        console.log(email, password)
+        //console.log(email, password)
 
         try {
             const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
+            alert('Ingreso con exito')
         } catch (error) {
             //console.log(error.message) 
-            //console.log(error.code)     // ayuda para el if
+            //console.log(error.code)     // ayuda para el if msj error.code
 
             if (error.code === 'auth/email-already-in-use'){
                 alert('Correo ya registrado')
@@ -76,7 +79,9 @@ export const Register = () => {
             }
         }
     })
-    // Go to home
+
+
+    // Regresar a login
     btnGoBack.addEventListener('click', () => navigate('/'));
 
 

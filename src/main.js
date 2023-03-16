@@ -1,4 +1,6 @@
 // Este es el punto de entrada de tu aplicacion
+//import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js" //ver authStateChanged
+//import { auth } from './lib/firebase.js'  //ver authStateChanged
 import { Home } from './components/home.js';
 import { Login } from './components/login.js';
 import { Register } from './components/register.js';

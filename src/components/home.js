@@ -1,7 +1,9 @@
 export const Home = () => {
     const div = document.createElement('div');
     const sectionTitle = document.createElement('h1');
-    sectionTitle.textContent = 'MURO';
+    sectionTitle.textContent = 'PUBLICACIONES';
+
+    div.appendChild(sectionTitle);
     
-    return sectionTitle;
+    return div;
   }
