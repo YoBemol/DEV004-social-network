@@ -75,6 +75,7 @@ export const Login = () => {
             const credentials = await signInWithPopup(auth, provider)
             console.log(credentials)
             alert('Bienvenida/o ' + credentials.user.displayName)
+            navigate('/home')
         } catch (error) {
             //console.log(error)
             if (error.code === 'auth/popup-closed-by-user') {
@@ -102,6 +103,7 @@ export const Login = () => {
             const credentials = await signInWithEmailAndPassword(auth, email, password)
             console.log(credentials)
             alert('Bienvenida/o ' + credentials.user.email)
+            navigate('/home')
         } catch (error) {
             //console.log(error)
             if (error.code === 'auth/wrong-password') {

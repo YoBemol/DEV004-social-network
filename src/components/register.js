@@ -64,6 +64,7 @@ export const Register = () => {
         try {
             const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
             alert('Ingreso con exito')
+            navigate('/home')
         } catch (error) {
             //console.log(error.message) 
             //console.log(error.code)     // ayuda para el if msj error.code
