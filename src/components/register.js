@@ -1,6 +1,6 @@
-import { navigate } from "../router";
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"
-import { auth } from '../lib/firebase.js';
+import { navigate } from '../router';
+//import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"
+import { auth, createUserWithEmailAndPassword } from '../lib/firebase.js';
 export const Register = () => {
     const registerSection = document.createElement('section');
     const registerSectionTitle = document.createElement('h1');
@@ -12,19 +12,19 @@ export const Register = () => {
 
     const textEmail = document.createElement('p');
     textEmail.className = 'form';
-    textEmail.id = 'textEmail'
+    textEmail.id = 'textEmail';
     textEmail.textContent = 'Correo electronico';
 
     const inputEmail = document.createElement('input');
     inputEmail.className = 'form';
-    inputEmail.id = 'userEmail'
+    inputEmail.id = 'userEmail';
     inputEmail.type = 'email';
     inputEmail.placeholder = 'usuario@email.com';
     inputEmail.setAttribute('required', '');
 
     const textPassword = document.createElement('p');
     textPassword.className = 'form';
-    textPassword.id = 'textPassword'
+    textPassword.id = 'textPassword';
     textPassword.textContent = 'Contraseña';
 
     const inputPassword = document.createElement('input');
@@ -63,23 +63,23 @@ export const Register = () => {
 
         try {
             const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
-            alert('Ingreso con exito')
-            navigate('/home')
+            alert('Ingreso con exito');
+            navigate('/home');
         } catch (error) {
             //console.log(error.message) 
             //console.log(error.code)     // ayuda para el if msj error.code
 
-            if (error.code === 'auth/email-already-in-use'){
-                alert('Correo ya registrado')
-            } else if (error.code === 'auth/invalid-email'){
-                alert('Correo invalido')
-            } else if (error.code === 'auth/weak-password'){
-                alert('Contraseña debil')
-            } else if (error.code){
-                alert('Algo salio mal')
+            if (error.code === 'auth/email-already-in-use') {
+                alert('Correo ya registrado');
+            } else if (error.code === 'auth/invalid-email') {
+                alert('Correo invalido');
+            } else if (error.code === 'auth/weak-password') {
+                alert('Contraseña debil');
+            } else if (error.code) {
+                alert('Algo salio mal');
             }
         }
-    })
+    });
 
 
     // Regresar a login
