@@ -1,27 +1,35 @@
-import { signOut } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"
-import { auth } from '../lib/firebase.js';
-import { navigate } from "../router";
+//import { signOut } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js';
+import { auth, signOut  } from '../lib/firebase.js';
+import { navigate } from '../router';
 export const Home = () => {
-    const div = document.createElement('div');
-    const sectionTitle = document.createElement('h1');
-    sectionTitle.textContent = 'PUBLICACIONES';
+  const div = document.createElement('div');
+  const sectionTitle = document.createElement('h1');
+  sectionTitle.textContent = 'PUBLICACIONES';
 
-    const contentDiv = document.createElement('p');    
-    contentDiv.textContent = 'Esto es una prueba';
+  const contentDiv = document.createElement('p');
+  contentDiv.textContent = 'Esto es una prueba';
 
-    const logOut = document.createElement('button');
-    logOut.textContent = 'Cerrar Sesion';
+  const logOut = document.createElement('button');
+  logOut.textContent = 'Cerrar Sesion';
 
-    div.appendChild(sectionTitle);
-    div.appendChild(contentDiv);
-    div.appendChild(logOut);
+  div.appendChild(sectionTitle);
+  div.appendChild(contentDiv);
+  div.appendChild(logOut);
 
-    // Regresar a login
-    logOut.addEventListener('click', async () => {
-      await signOut(auth)
-      console.log('usuario logout')
-      navigate('/')
-    });
+  // Regresar a login
+  logOut.addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      await signOut(auth);
+    //console.log('usuario logout')
+    navigate('/');
+    } catch (error) {
+      if (error.code) {
+        alert('Algo salio mal');
+    }
+    }
     
-    return div;
-  }
+  });
+
+  return div;
+};
