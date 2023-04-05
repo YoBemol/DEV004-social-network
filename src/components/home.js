@@ -1,5 +1,5 @@
 //import { signOut } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js';
-import { auth, signOut  } from '../lib/firebase.js';
+import { logOutUser } from '../lib/firebase.js';
 import { navigate } from '../router';
 export const Home = () => {
   const div = document.createElement('div');
@@ -10,7 +10,8 @@ export const Home = () => {
   contentDiv.textContent = 'Esto es una prueba';
 
   const logOut = document.createElement('button');
-  logOut.textContent = 'Cerrar Sesion';
+  logOut.textContent = 'Cerrar Sesión';
+  logOut.id = 'btnlogOut';
 
   div.appendChild(sectionTitle);
   div.appendChild(contentDiv);
@@ -20,12 +21,12 @@ export const Home = () => {
   logOut.addEventListener('click', async (e) => {
     e.preventDefault();
     try {
-      await signOut(auth);
+      await logOutUser()
     //console.log('usuario logout')
     navigate('/');
     } catch (error) {
       if (error.code) {
-        alert('Algo salio mal');
+        alert('Algo salió mal');
     }
     }
     

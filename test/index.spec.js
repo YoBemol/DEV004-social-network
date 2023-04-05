@@ -1,67 +1,170 @@
 // importamos la funcion que vamos a testear
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import firebaseFn from '../src/lib/firebase.js'
 
+import firebaseFn from '../src/lib/firebase.js'
 import { Login } from '../src/components/login.js';
 import { addRoutes } from '../src/router/index.js';
-//import { auth } from '../src/lib/firebaseConfig';
-//import { myFunction } from '../src/lib/index';
-jest.mock('../src/lib/firebase.js', () => ({
-  signInWithEmailAndPassword: jest.fn()
-}))
-//evita problemas con alert
-//jest.spyOn(window, 'alert').mockImplementation(() => { });//jorge
-global.alert = () => {}
-describe('login', () => {
-  it.only('si usuario y contrasena son correctas lleva a home',  (done) => {
-    
-    //const mockSignIn = jest.fn(() => Promise.resolve({ user: { email: 'usuario@mail.com' } }))//jorge
-    document.body.innerHTML = '<main id="root"></main>'
-    addRoutes({
-      
-      '/home': () => {},
-    });
-    
-    firebaseFn.signInWithEmailAndPassword.mockResolvedValue({ user: { email: 'usuario@mail.com' } })
-   /* jest.mock("firebase/auth", () => ({//jorge
-      signInWithEmailAndPassword: mockSignIn//jorge
-    }))//jorge*/
-    
-    
+import { Register } from '../src/components/register.js';
+import { Home } from '../src/components/home.js';
 
+jest.mock('../src/lib/firebase.js', () => ({
+  loginEmail: jest.fn()
+}))
+
+//evita problemas con alert
+//jest.spyOn(window, 'alert').mockImplementation(() => { });
+global.alert = () => { }
+
+/* ARCHIVO login.js */
+describe('login', () => {
+  it('si usuario y contrasena son correctas lleva a home', (done) => {
+
+    //const mockSignIn = jest.fn(() => Promise.resolve({ user: { email: 'usuario@mail.com' } }))
+    //donde se inserta la vista de Login
+    document.body.innerHTML = '<main id="root"></main>'
+    //donde estan las rutas
+    addRoutes({
+      '/home': () => { },
+    });
+    //mock del metodo
+    firebaseFn.loginEmail.mockResolvedValueOnce({ user: { email: 'usuario@mail.com' } })
+    //vista de Login
     const section = Login();
-    
+    //inputs de formulario completados
     section.querySelector('#email').value = 'usuario@mail.com';
     section.querySelector('#password').value = 'usu123';
-
+    //envio de formulario
     section.querySelector('#loginForm').dispatchEvent(new Event('submit'));
-
+    //pasos completados debe dirigirnos a home
     setTimeout(() => {
       expect(window.location.pathname).toBe('/home');
-      
+
       done();
     }, 0);
 
-    //console.log('mockSignIn', mockSignIn)
   });
 
-  it('deberia fallar con un email invalido', async () => {
+  it('si el usuario de google es correcto lleva a home', (done) => {
 
-    
-    const mockSignIn = jest.fn(() => Promise.resolve({ user: { email: 'null' } }))//jorge
-    jest.mock("firebase/auth", () => ({//jorge
-      signInWithEmailAndPassword: mockSignIn//jorge
-    }))//jorge
+    document.body.innerHTML = '<main id="root"></main>'
+    addRoutes({
 
-    console.log(mockSignIn)
+      '/home': () => { },
+    });
 
-    expect.assertions(1)
-    try {
-      await signInWithEmailAndPassword(mockSignIn);
-    } catch (error) {
-      expect(error).not.toBeNull()
-    }
-  })
-    
-}); 
+    firebaseFn.loginGoogle = jest.fn().mockResolvedValueOnce({ user: { email: 'usuario@gmail.com' } })
 
+    /*//para mockear un constructor
+    firebaseFn.GoogleAuthProvider = jest.fn().mockImplementation(() => {
+      return { GoogleAuthProvider: GoogleAuthProvider };
+    });*/
+
+    const section = Login();
+
+    section.querySelector('#googleLogin').dispatchEvent(new Event('click'));
+
+    setTimeout(() => {
+      expect(window.location.pathname).toBe('/home');
+
+      done();
+    }, 0);
+
+  });
+
+  it('el boton register lleva a /register', (done) => {
+
+    document.body.innerHTML = '<main id="root"></main>'
+    addRoutes({
+
+      '/register': () => { },
+    });
+
+    const section = Login();
+
+    section.querySelector('#btnRegister').dispatchEvent(new Event('click'));
+
+    setTimeout(() => {
+      expect(window.location.pathname).toBe('/register');
+
+      done();
+    }, 0);
+
+  });
+
+});
+
+/* ARCHIVO register.js */
+describe('register', () => {
+  it('usuario al registrarse lo lleva a home', (done) => {
+
+    //const mockSignIn = jest.fn(() => Promise.resolve({ user: { email: 'usuario@mail.com' } }))
+    document.body.innerHTML = '<main id="root"></main>'
+    addRoutes({
+
+      '/home': () => { },
+    });
+    // REVISAR MOCK DE CREATE USER, SE SUPONE Q ES UN ESPACIO VACIO???
+    firebaseFn.createUser = jest.fn().mockResolvedValueOnce({ user: { email: 'usu@mail.com' } })
+
+
+    const section = Register();
+
+    section.querySelector('#userEmail').value = 'usu@mail.com';
+    section.querySelector('#userPassword').value = 'usu1234';
+
+    section.querySelector('#formRegister').dispatchEvent(new Event('submit'));
+
+    setTimeout(() => {
+      expect(window.location.pathname).toBe('/home');
+
+      done();
+    }, 0);
+
+  });
+
+  it('el boton volver lleva a pagina principal', (done) => {
+
+    document.body.innerHTML = '<main id="root"></main>'
+    addRoutes({
+
+      '/': () => { },
+    });
+
+    const section = Register();
+
+    section.querySelector('#btnBack').dispatchEvent(new Event('click'));
+
+    setTimeout(() => {
+      expect(window.location.pathname).toBe('/');
+
+      done();
+    }, 0);
+
+  });
+
+});
+
+
+/* ARCHIVO home.js */
+describe('home', () => {
+  it('Boton cerrar sesion lleva a pagina principal', (done) => {
+
+    document.body.innerHTML = '<main id="root"></main>'
+    addRoutes({
+
+      '/': () => { },
+    });
+    // REVISAR MOCK DE CREATE USER, SE SUPONE Q ES UN ESPACIO VACIO???
+    firebaseFn.logOutUser = jest.fn().mockResolvedValueOnce()
+
+    const section = Home();
+
+    section.querySelector('#btnlogOut').dispatchEvent(new Event('click'));
+
+    setTimeout(() => {
+      expect(window.location.pathname).toBe('/');
+
+      done();
+    }, 0);
+
+  });
+});

@@ -1,19 +1,24 @@
 import { navigate } from '../router';
 //import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"
-import { auth, createUserWithEmailAndPassword } from '../lib/firebase.js';
+import { createUser } from '../lib/firebase.js';
 export const Register = () => {
     const registerSection = document.createElement('section');
+
+    const logo = document.createElement('img');
+    logo.id = 'logo';
+    logo.src = './img/hoja.png';
+    
     const registerSectionTitle = document.createElement('h1');
     registerSectionTitle.textContent = 'Crea tu cuenta';
 
     //formulario para registrarse
     const formRegister = document.createElement('form');
-    formRegister.className = 'formRegister';
+    formRegister.id = 'formRegister';
 
     const textEmail = document.createElement('p');
     textEmail.className = 'form';
     textEmail.id = 'textEmail';
-    textEmail.textContent = 'Correo electronico';
+    textEmail.textContent = 'Correo electrónico';
 
     const inputEmail = document.createElement('input');
     inputEmail.className = 'form';
@@ -34,20 +39,28 @@ export const Register = () => {
     inputPassword.placeholder = 'Contraseña';
     inputPassword.setAttribute('required', '');
 
+    const salt3 = document.createElement('br');
+
     const buttonRegister = document.createElement('button');
     buttonRegister.type = 'submit';
     buttonRegister.textContent = 'Registrarse';
 
+    const salt4 = document.createElement('br');
+
     const btnGoBack = document.createElement('button');
     btnGoBack.textContent = 'Volver';
+    btnGoBack.id = 'btnBack';
 
+    registerSection.appendChild(logo)
     registerSection.appendChild(registerSectionTitle);
     registerSection.appendChild(formRegister);
     formRegister.appendChild(textEmail);
     formRegister.appendChild(inputEmail);
     formRegister.appendChild(textPassword);
     formRegister.appendChild(inputPassword);
+    formRegister.appendChild(salt3);
     formRegister.appendChild(buttonRegister);
+    formRegister.appendChild(salt4);
     formRegister.appendChild(btnGoBack);
     //vista de los inputs
     //console.log(inputEmail.value, inputPassword.value)
@@ -62,8 +75,8 @@ export const Register = () => {
         //console.log(email, password)
 
         try {
-            const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
-            alert('Ingreso con exito');
+            const createUsers = createUser(email, password)
+            alert('Ingreso con éxito');
             navigate('/home');
         } catch (error) {
             //console.log(error.message) 
@@ -72,11 +85,11 @@ export const Register = () => {
             if (error.code === 'auth/email-already-in-use') {
                 alert('Correo ya registrado');
             } else if (error.code === 'auth/invalid-email') {
-                alert('Correo invalido');
+                alert('Correo inválido');
             } else if (error.code === 'auth/weak-password') {
-                alert('Contraseña debil');
+                alert('Contraseña débil');
             } else if (error.code) {
-                alert('Algo salio mal');
+                alert('Algo salió mal');
             }
         }
     });

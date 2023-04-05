@@ -1,8 +1,6 @@
 import {
-    auth,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signInWithEmailAndPassword
+    loginEmail,
+    loginGoogle,
 } from '../lib/firebase.js';
 //import { GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
 //import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
@@ -15,19 +13,23 @@ export const Login = () => {
     const homeSection = document.createElement('section');
     homeSection.className = 'section';
 
-    const homeSectionTitle = document.createElement('p');
+    const logo = document.createElement('img');
+    logo.id = 'logo';
+    logo.src = './img/hoja.png';
+
+    const homeSectionTitle = document.createElement('h1');
     homeSectionTitle.id = 'comment1';
     homeSectionTitle.textContent = 'Eres nueva/o en INFO NATURA?';
 
     const homeSectionSubTitle = document.createElement('p');
     homeSectionSubTitle.id = 'comment2';
-    homeSectionSubTitle.textContent = 'Registrate';
+    homeSectionSubTitle.textContent = 'Regístrate';
 
     //boton crear cuenta con google
     const buttonGoogle = document.createElement('button');
     buttonGoogle.type = 'button';
     buttonGoogle.id = 'googleLogin';
-    buttonGoogle.textContent = 'Inicia sesion con Google';
+    buttonGoogle.textContent = 'Inicia sesión con Google';
 
     //boton crear cuenta con correo y contrasena 
     const buttonRegister = document.createElement('button');
@@ -35,6 +37,7 @@ export const Login = () => {
     buttonRegister.id = 'btnRegister';
     buttonRegister.textContent = 'Crear cuenta';    //Registrate
 
+    const salt1 = document.createElement('br');
     const line = document.createElement('hr');
 
     //formulario para loguearse
@@ -43,12 +46,13 @@ export const Login = () => {
 
     const textEmail = document.createElement('p');
     textEmail.id = 'textEmail'
-    textEmail.textContent = 'Correo electronico';
+    textEmail.textContent = 'Correo electrónico';
 
     const inputEmail = document.createElement('input');
     inputEmail.type = 'email';
     inputEmail.id = 'email';
     inputEmail.placeholder = 'usuario@email.com';
+    inputEmail.setAttribute('required', '');
 
     const textPassword = document.createElement('p');
     textPassword.id = 'textPassword';
@@ -58,16 +62,20 @@ export const Login = () => {
     inputPassword.type = 'password';
     inputPassword.id = 'password';
     inputPassword.placeholder = 'Contraseña';
+    inputPassword.setAttribute('required', '');
+
+    const salt2 = document.createElement('br');
 
     const buttonLogin = document.createElement('button');
     buttonLogin.type = 'submit';
     buttonLogin.id = 'btnLogin';
     buttonLogin.textContent = 'Ingresar';
 
-
+    homeSection.appendChild(logo);
     homeSection.appendChild(homeSectionTitle);
     homeSection.appendChild(homeSectionSubTitle);
     homeSection.appendChild(buttonGoogle);
+    homeSection.appendChild(salt1);
     homeSection.appendChild(buttonRegister);
     homeSection.appendChild(line);
     homeSection.appendChild(formLogin);
@@ -75,17 +83,17 @@ export const Login = () => {
     formLogin.appendChild(inputEmail);
     formLogin.appendChild(textPassword);
     formLogin.appendChild(inputPassword);
+    formLogin.appendChild(salt2);
     formLogin.appendChild(buttonLogin);
 
     //Login con google
 
-    buttonGoogle.addEventListener('click', async () => {
+    buttonGoogle.addEventListener('click', async (e) => {
 
-        const provider = new GoogleAuthProvider(); // instancia es una clase q va a devolver un objeto
-
+        e.preventDefault()
         try {
-            const credentials = await signInWithPopup(auth, provider);
-            //console.log(credentials)
+            const credentials = await loginGoogle()
+            console.log(credentials)
             alert('Bienvenida/o ' + credentials.user.displayName);
             navigate('/home');
         } catch (error) {
@@ -93,7 +101,7 @@ export const Login = () => {
             if (error.code === 'auth/popup-closed-by-user') {
                 alert('Ventana cerrada por el usuario');
             } else if (error.code) {
-                alert('Algo salio mal');
+                alert('Algo salió mal');
             }
         }
         //falta mas if con alerts??? 
@@ -110,9 +118,9 @@ export const Login = () => {
         e.preventDefault()
         const email = inputEmail.value;
         const password = inputPassword.value;
-        console.log(email, password)
+        //console.log(email, password)
         try {
-            const credentials = await signInWithEmailAndPassword(auth, email, password);
+            const credentials = await loginEmail(email, password);
             //console.log(credentials)
             alert('Bienvenida/o ' + credentials.user.email);
             navigate('/home');
@@ -123,7 +131,7 @@ export const Login = () => {
             } else if (error.code === 'auth/user-not-found') {
                 alert('Usuario no encontrado');
             } else {
-                alert('Algo salio mal');
+                alert('Algó salio mal');
             }
         }
 
