@@ -11,7 +11,7 @@ import { navigate } from '../router';
 export const Login = () => {
 
     const homeSection = document.createElement('section');
-    homeSection.className = 'section';
+    homeSection.id = 'homeSection';
 
     const logo = document.createElement('img');
     logo.id = 'logo';
@@ -71,6 +71,8 @@ export const Login = () => {
     buttonLogin.id = 'btnLogin';
     buttonLogin.textContent = 'Ingresar';
 
+    const salt3 = document.createElement('br');
+
     homeSection.appendChild(logo);
     homeSection.appendChild(homeSectionTitle);
     homeSection.appendChild(homeSectionSubTitle);
@@ -85,15 +87,16 @@ export const Login = () => {
     formLogin.appendChild(inputPassword);
     formLogin.appendChild(salt2);
     formLogin.appendChild(buttonLogin);
+    homeSection.appendChild(salt3);
 
     //Login con google
 
     buttonGoogle.addEventListener('click', async (e) => {
 
-        e.preventDefault()
+        e.preventDefault() //cancela evento por defecto q es refrescar la pagina
         try {
             const credentials = await loginGoogle()
-            console.log(credentials)
+            console.log('cred', credentials)
             alert('Bienvenida/o ' + credentials.user.displayName);
             navigate('/home');
         } catch (error) {
@@ -121,7 +124,7 @@ export const Login = () => {
         //console.log(email, password)
         try {
             const credentials = await loginEmail(email, password);
-            //console.log(credentials)
+            console.log('cred',credentials)
             alert('Bienvenida/o ' + credentials.user.email);
             navigate('/home');
         } catch (error) {

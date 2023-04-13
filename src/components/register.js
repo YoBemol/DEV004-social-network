@@ -3,6 +3,7 @@ import { navigate } from '../router';
 import { createUser } from '../lib/firebase.js';
 export const Register = () => {
     const registerSection = document.createElement('section');
+    registerSection.id = 'sectionRegister';
 
     const logo = document.createElement('img');
     logo.id = 'logo';
@@ -14,7 +15,20 @@ export const Register = () => {
     //formulario para registrarse
     const formRegister = document.createElement('form');
     formRegister.id = 'formRegister';
+/*
+    const textName = document.createElement('p');
+    textName.className = 'form';
+    textName.id = 'textName';
+    textName.textContent = 'Nombre';
 
+    const inputName = document.createElement('input');
+    inputName.className = 'form';
+    inputName.id = 'userName';
+    inputName.type = 'text';
+    inputName.placeholder = 'Nombre';
+    inputName.setAttribute('required', '');
+    inputName.setAttribute('maxLength', '20');
+*/
     const textEmail = document.createElement('p');
     textEmail.className = 'form';
     textEmail.id = 'textEmail';
@@ -54,6 +68,8 @@ export const Register = () => {
     registerSection.appendChild(logo)
     registerSection.appendChild(registerSectionTitle);
     registerSection.appendChild(formRegister);
+    //formRegister.appendChild(textName);
+    //formRegister.appendChild(inputName);
     formRegister.appendChild(textEmail);
     formRegister.appendChild(inputEmail);
     formRegister.appendChild(textPassword);
@@ -70,8 +86,9 @@ export const Register = () => {
     formRegister.addEventListener('submit', async (e) => { // submit pertenece form
 
         e.preventDefault();
+        //const name = inputName.value;
         const email = inputEmail.value;
-        const password = inputPassword.value;
+        const password = inputPassword.value;        
         //console.log(email, password)
 
         try {

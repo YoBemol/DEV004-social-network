@@ -10,18 +10,21 @@
 body {
 
     background-image:
-        radial-gradient(#0099ff 1px, transparent 1px),
-        radial-gradient(#0099ff4d 1px, transparent 1px); /*mas claro agregar 4d a color*/
+        radial-gradient(#0099ff4d 1px, transparent 1px),
+        radial-gradient(#0099ff4d 1px, transparent 1px);
+    /*mas claro agregar 4d a color*/
     background-position: 0 0, 25px 25px;
     background-size: 50px 50px;
 }
 
 #root {
-    height: 100vh;
+
     /*width: 480px;*/
     border: 1px solid #ccc;
     display: grid;
-    place-content: center; /*eje vert y hor centrados*/
+    align-content: center;
+    justify-content: center;
+    /*eje vert y hor centrados*/
 
 }
 
@@ -30,18 +33,24 @@ section {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    height: 100%;
+    width: 450px;
+    /*VER AQUI 550
+    height: 100vh;*/
 
 }
 
-@media (min-width: 520px) {
+/*#homeSection{
+    height: 50%;
+}*/
+
+/*
+@media (min-width: 550px) {
     section {
-        width: 520px;
-        height: 90vh;
+        width: 100%;
+        height: 100%;
     }
 }
-
+*/
 #logo {
     width: 120px;
     padding: 30px;
@@ -50,10 +59,10 @@ section {
 h1 {
     text-align: center;
     font-weight: 800;
-    padding-bottom: 20px;
+    padding: 0 20px 20px;
 }
 
-p{
+p {
     font-size: 18px;
     padding-bottom: 8px;
     margin-top: 4px;
@@ -66,13 +75,14 @@ input {
 button {
     font-size: 16px;
     margin-top: 16px;
+    margin-bottom: 10px;
     padding: 4px 12px;
     border-radius: 5px;
     border: 0;
     cursor: pointer;
     transition: opacity 0.2s ease;
     background-color: #c3cdca;
-       
+
 }
 
 button:hover {
@@ -83,8 +93,93 @@ hr {
     margin: 20px 70px;
 }
 
+#sectionRegister {
+    padding-top: 69px;
+}
+
 #formRegister {
     text-align: center;
     margin: 0 auto;
+
+}
+
+/*home, prblemas con mobile first*/
+#divHome {
+    width: 600px;
+
+}
+
+header {
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    height: 49px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255);
+}
+
+/*article{
+    padding: 10px 15px;
+}*/
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 20px ;
+    background: #f6f6f6;
+    font-size: 20px;
+    color: #555;
+    position: relative;
+    align-items: center;
+    border-bottom: 1px solid #e6e6e6;
     
+}
+
+li span {
+    display: block;
+}
+
+li div {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    background: rgba(255, 255, 255, 0.6);
+    width: 40px;
+    text-align: center;
+    padding: 5px 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+h2 {
+    font-size: 21px;
+    font-weight: 800;
+}
+
+#loginCreate {
+    padding-top: 29px;
+}
+
+#textArea {
+    display: flex;
+    justify-content: center;
+    min-height: 80px;
+    width: 100%;
+    padding: 0.9rem;
+    resize: vertical;
+    font-size: 16px;
+}
+
+nav {
+    bottom: 0;
+    border-top: 1px solid #ccc;
+    height: 49px;
+    position: sticky;
+    width: 100%;
 }
