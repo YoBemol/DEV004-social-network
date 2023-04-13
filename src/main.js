@@ -30,6 +30,7 @@ window.addEventListener('load', () => {
   navigate(window.location.pathname);
 });
 
+/*revisar ya esta en firebase.js
 onAuthStateChanged(auth, async (user) => {
   //console.log(user)
-});
+});*/
