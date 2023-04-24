@@ -4,12 +4,13 @@ import {
   getFirestore,
   collection,
   addDoc,
-  getDocs,
+  getDoc,
   onSnapshot,
   deleteDoc,
   doc,
   query,
-  orderBy
+  orderBy,
+  updateDoc
 } from "firebase/firestore";
 //import { getAuth } from "firebase/auth"
 // TODO: Add SDKs for Firebase products that you want to use
@@ -91,12 +92,17 @@ const db = getFirestore()
 const queryContent = query(collection(db, 'content'), orderBy('date', 'desc'))
 const date = new Date()
 export const saveTextContent = (content) => {
-  addDoc(collection(db, 'content'), { content, uid: auth.currentUser.uid, name: auth.currentUser.displayName, date: date.toLocaleString()  }) //name: user.displayName,uid: user.uid,
+  addDoc(collection(db, 'content'), { content, uid: auth.currentUser.uid,email:auth.currentUser.email, name: auth.currentUser.displayName, date: date.toLocaleString()  }) //name: user.displayName,uid: user.uid,
 }
 
-export const getContent = () => getDocs(collection(data, 'content'))//revisar ya no se utiliza en home
 
 export const onGetContent = (callback) => onSnapshot(queryContent, callback)
 
 //delete content
 export const deleteContent = (id) => deleteDoc(doc(db, 'content', id))
+
+//aux edit content
+export const getContent = (id) => getDoc(doc(db, 'content', id))
+
+//edit content
+export const updateContent = (id, newFields) => updateDoc(doc(db, 'content', id), newFields)

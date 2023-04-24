@@ -1,10 +1,13 @@
 //import { signOut } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js';
-import { QuerySnapshot, doc } from 'firebase/firestore'; //revisar cambie Q por q --sintaxys error
+//import { QuerySnapshot, doc } from 'firebase/firestore'; 
 import {
   logOutUser,
   saveTextContent,
   deleteContent,
   onGetContent,
+  getContent,
+  updateContent,
+  auth
 } from '../lib/firebase.js';
 import { navigate } from '../router';
 
@@ -26,11 +29,12 @@ export const Home = () => {
   const formCreate = document.createElement('form');
   formCreate.id = 'loginCreate';
 
-  const inputText = document.createElement('TEXTAREA');
-  inputText.id = 'textArea';
+  const inputText = document.createElement('textarea');
+  inputText.classList.add('textArea');
+  inputText.id = 'inputText';
   inputText.placeholder = 'Que esta pasando?'
   inputText.setAttribute('rows', '2');
-  inputText.setAttribute('maxLength', '50');
+  inputText.setAttribute('maxLength', '250');
   inputText.setAttribute('required', '');
 
   const salt1 = document.createElement('br');
@@ -80,8 +84,9 @@ export const Home = () => {
 
   formCreate.addEventListener('submit', async (e) => {
     e.preventDefault()
-
-    const content = formCreate.textArea
+    //console.log("enviar form"); // aux para test
+    const content = document.getElementsByClassName('textArea')[0];
+    //console.log(content) //formCreate.textArea
     saveTextContent(content.value)
 
     formCreate.reset()
@@ -94,32 +99,114 @@ export const Home = () => {
     let li = document.createElement('li');
     let name = document.createElement('span');
     let cont = document.createElement('span');
-    let date = document.createElement('span');//crear sitio para date    
+    let contEdit = document.createElement('textarea');
+    let date = document.createElement('span');  
+    let edit = document.createElement('button');
+    let save = document.createElement('button');
+    let cancel = document.createElement('button');
     let del = document.createElement('div');
+    del.id = 'del';
 
-    let user = doc.data().name == null ? 'user InfoNatura' : doc.data().name // por resolver nombre usuario
+    let user = doc.data().name == null ? doc.data().email || 'userINFO' : doc.data().name
     //console.log(doc.data())
 
     li.setAttribute('data-id', doc.id);
+    li.setAttribute('data-userid', doc.data().uid);
+    contEdit.setAttribute('class', 'oculto');
+
     name.textContent = user;
     cont.textContent = doc.data().content;
+    contEdit.textContent = doc.data().content;
     date.textContent = doc.data().date;
+    edit.textContent = 'Editar';
+    save.textContent = 'Guardar';
+    cancel.textContent = 'Cancelar';
     del.textContent = 'x';//signo para eliminar publicaciones
 
     li.appendChild(name);
     li.appendChild(cont);
+    li.appendChild(contEdit);
     li.appendChild(date);
-    li.appendChild(del);
 
+    //delete y edit visible solo para user signin
+    if (doc.data().uid === auth.currentUser.uid) {
+
+      li.appendChild(del);
+      li.appendChild(edit);
+      li.appendChild(save);
+      li.appendChild(cancel);
+
+      save.setAttribute('class', 'oculto');
+      cancel.setAttribute('class', 'oculto');
+
+    }
     ul.appendChild(li);
 
     //borrar publicacion 
     del.addEventListener('click', (e) => {
       e.stopPropagation();
+      console.log('PRUEBA')
       let id = e.target.parentElement.getAttribute('data-id')
-      deleteContent(id)
+      const option = confirm('Estas segura/o de eliminar este post?');
+      if (option == true) {
+        deleteContent(id)
+      }
+
+    })
+
+
+
+    //editar publicacion 
+    edit.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      let id = e.target.parentElement.getAttribute('data-id')
+      const info = await getContent(id) // revisar si es necesario ya que use doc.data().content; (el mismo valor q en cont)
+      console.log('editar');
+
+      edit.setAttribute('class', 'oculto');
+      cont.setAttribute('class', 'oculto');
+      contEdit.setAttribute('class', 'visible');
+      save.setAttribute('class', 'visible');
+      cancel.setAttribute('class', 'visible');
+
+
+      console.log('contEditvalue', contEdit.value);
+
+
+      /*
+      let opcion = (prompt('Texto a editar', `${cont.data().content}`));
+
+      if (opcion !== null || opcion !== "") {
+        updateContent(id,{content: opcion}) 
+      }
+      */
+    });
+    //eventos de editar guardar y cancelar
+    save.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      let id = e.target.parentElement.getAttribute('data-id')
+      console.log('guardar');
+      if (contEdit.value !== null || contEdit.value !== "") {
+        await updateContent(id, { content: contEdit.value });
+        cancel.setAttribute('class', 'oculto');
+        save.setAttribute('class', 'oculto');
+        cont.setAttribute('class', 'visible');
+        edit.setAttribute('class', 'visible');
+      }
+
+    })
+
+    cancel.addEventListener('click', (e) => {
+      e.stopPropagation();
+      console.log('cancelar');
+      edit.setAttribute('class', 'visible');
+      cont.setAttribute('class', 'visible');
+      contEdit.setAttribute('class', 'oculto');
+      cancel.setAttribute('class', 'oculto');
+      save.setAttribute('class', 'oculto');
     })
   });
+
 
 
   //listar contenido revisar 
@@ -128,10 +215,10 @@ export const Home = () => {
     //console.log(querySnapshot)
     ul.innerHTML = '';
     querySnapshot.forEach((doc) => {
-      console.log(doc.data())
+      //console.log(doc.data())
       renderContent(doc)
     })
-    
+
   })
 
 
