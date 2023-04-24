@@ -1,13 +1,14 @@
 // importamos la funcion que vamos a testear
 
-import firebaseFn from '../src/lib/firebase.js'
+import firebaseFn, { onGetContent, saveTextContent } from '../src/lib/firebase.js'
 import { Login } from '../src/components/login.js';
 import { addRoutes } from '../src/router/index.js';
 import { Register } from '../src/components/register.js';
 import { Home } from '../src/components/home.js';
 
 jest.mock('../src/lib/firebase.js', () => ({
-  loginEmail: jest.fn()
+  loginEmail: jest.fn(),
+  onGetContent: jest.fn()
 }))
 
 //evita problemas con alert
@@ -167,4 +168,80 @@ describe('home', () => {
     }, 0);
 
   });
+
+
+  it('Funcion crear post permite crear y ensenar post', (done) => {
+
+    //Paso 1.1 mockear funciones de firebase
+    firebaseFn.onGetContent = jest.fn().mockResolvedValueOnce()
+    firebaseFn.saveTextContent = jest.fn().mockResolvedValueOnce()
+
+    //Paso 1. ir a /home
+    const div = Home();
+    document.body.append(div) //anade div al document
+
+    //Opcion alternativaa para document.body.append(div) 
+    /*document.body.innerHTML = '<main id="root"></main>';
+    const root = document.getElementById('root');
+    root.innerHTML = '';
+    root.append(div);*/
+    /*//Opcion para evento click
+    id.click()*/
+
+    //Paso 2. ingresar texto de prueba
+    const textArea = div.querySelector('.textArea')
+    textArea.value = 'Algun texto';
+
+    //Paso 3. enviar formulario
+    div.querySelector('#loginCreate').dispatchEvent(new Event('submit'));
+
+    //Paso 4. confirmar que el listado de publicaciones tenga el nuevo post
+    setTimeout(() => {
+      expect(firebaseFn.saveTextContent).toHaveBeenCalledWith('Algun texto')
+      done()
+    }, 0);
+  });
+
+  it.only('Funcion borrar publicacion permite eliminar post', (done) => {
+    //Paso 1.1 mockear funciones de firebase
+    //firebaseFn.onGetContent = jest.fn().mockResolvedValueOnce()
+    //firebaseFn.deleteContent = jest.fn().mockResolvedValueOnce()
+    console.log(firebaseFn.onGetContent())
+    //Paso 1. ir a /home
+    //const div = Home();
+    
+    //document.body.append(div);
+    //const li = onGetContent()
+    //document.body.append(li)
+    //Paso 2. ir a 
+    //Paso 2. crear elemento para eliminar un post
+    
+    //const del = div.querySelector('#del')
+    //del.textContent = 'x';
+    //console.log(del)
+    //Paso 3. hacer click en eliminar dentro de un post
+    //div.querySelector('#del').dispatchEvent(new Event('click'));
+    //Paso 4. mockear alert para evitar porblemas global.alert = () => { } arriba linea 15
+    //Paso 5. confirmar que se haya borrado el post 
+    /*setTimeout(() => {
+      expect(firebaseFn.deleteContent).not.toHaveBeenCalledWith('x')
+      done()
+    }, 0);*/
+
+    /*Home()
+    window.dispatchEvent(new Event('DOMContentLoaded'))
+    const onGetMock = jest.fn(firebaseFn.onGetContent)
+    
+    expect(onGetMock).toHaveBeenCalled()*/
+
+    /*document.body.innerHTML = `<main id="root"></main>`
+    const homeTest = Home()
+    const div = homeTest.querySelector('#muro') 
+    firebaseFn.onGetContent().then((res) => res.forEach(doc => {
+      div.innerHTML = doc.data().content
+      expect(div.innerHTML).toBe(doc.data().content)
+    }))*/
+  })
+
 });
+
