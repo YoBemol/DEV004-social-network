@@ -56,11 +56,11 @@ Unir a personas que comparten su preocupación por el cuidado del planeta.
 
 ![](https://github.com/YoBemol/DEV004-social-network/blob/main/src/img/HU_Proyecto3.jpeg)
 
-### 2.4 Diseño de la Interfaz de Usuario (prototipo de baja y alta fidelidad)
+### 2.4 Diseño de la Interfaz de Usuario (prototipos)
 
 ![](https://github.githubassets.com/src/img/IMG-Intro_log_reg.jpg)
 
-![](https://github.githubassets.com/src/img/mobile_HU1.jpg)
+![Prototipo alta fidelidad](https://github.com/YoBemol/DEV004-social-network/blob/main/src/img/mobile_HU1.jpg)
 
 ### 2.5 Responsive
 
