@@ -30,37 +30,39 @@ export const Home = () => {
   formCreate.id = 'loginCreate';
 
   const inputText = document.createElement('textarea');
-  inputText.classList.add('textArea');
+  inputText.classList.add('textArea');//inputText.className='textArea'
   inputText.id = 'inputText';
   inputText.placeholder = 'Que esta pasando?'
   inputText.setAttribute('rows', '2');
   inputText.setAttribute('maxLength', '250');
   inputText.setAttribute('required', '');
 
-  const salt1 = document.createElement('br');
+  
 
   const createPub = document.createElement('button');
   createPub.textContent = 'Crear';
   createPub.id = 'btnCreate';
 
-  const contentDiv = document.createElement('p');
-  contentDiv.textContent = 'Muro';
+  //const salt1 = document.createElement('br');
+
+  /*const contentDiv = document.createElement('p');
+  contentDiv.textContent = 'Muro';*/
 
   const ul = document.createElement('ul');
   ul.id = 'muro';
 
   const navFooter = document.createElement('nav');
-  const contentNav = document.createElement('p');
-  contentNav.textContent = '';
+  const contentNav = document.createElement('p');  
+  contentNav.textContent = 'Creado con ❤ por Belen Molina';
 
   div.appendChild(headerHome);
   headerHome.appendChild(sectionTitle);
   headerHome.appendChild(logOut);
   div.appendChild(formCreate);
-  formCreate.appendChild(inputText);
-  formCreate.appendChild(salt1);
+  formCreate.appendChild(inputText);  
   formCreate.appendChild(createPub);
-  div.appendChild(contentDiv);
+  //formCreate.appendChild(salt1);
+  //formCreate.appendChild(contentDiv);
   div.appendChild(ul);
   div.appendChild(navFooter);
   navFooter.appendChild(contentNav);
@@ -105,6 +107,9 @@ export const Home = () => {
     let save = document.createElement('button');
     let cancel = document.createElement('button');
     let del = document.createElement('div');
+    name.id = 'name';
+    save.id = 'btnSave';
+    cancel.id = 'btnCancel';
     del.id = 'del';
 
     let user = doc.data().name == null ? doc.data().email || 'userINFO' : doc.data().name
@@ -119,8 +124,8 @@ export const Home = () => {
     contEdit.textContent = doc.data().content;
     date.textContent = doc.data().date;
     edit.textContent = 'Editar';
-    save.textContent = 'Guardar';
-    cancel.textContent = 'Cancelar';
+    save.textContent = 'Guardar ✔';
+    cancel.textContent = 'Cancelar ✘';
     del.textContent = 'x';//signo para eliminar publicaciones
 
     li.appendChild(name);
