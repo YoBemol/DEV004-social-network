@@ -1,6 +1,6 @@
 # Red Social INFONATURA
 
-![](https://github.githubassets.com/src/img/hoja.png){width='600' height='420'}
+
 
 ## Índice
 
@@ -54,7 +54,7 @@ Unir a personas que comparten su preocupación por el cuidado del planeta.
 
 ### 2.3 Historias de usuario
 
-![](https://github.githubassets.com/src/img/HU_Proyecto3.jpeg)
+![](https://github.com/YoBemol/DEV004-social-network/blob/main/src/img/HU_Proyecto3.jpeg)
 
 ### 2.4 Diseño de la Interfaz de Usuario (prototipo de baja y alta fidelidad)
 
