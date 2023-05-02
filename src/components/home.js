@@ -17,10 +17,11 @@ export const Home = () => {
 
   const headerHome = document.createElement('header');
   const sectionTitle = document.createElement('h2');
-  sectionTitle.textContent = 'Inicio';
+  sectionTitle.textContent = '⬆nicio';
+  sectionTitle.id = 'goToTop';
 
   const logOut = document.createElement('button');
-  logOut.textContent = 'Cerrar Sesión';
+  logOut.textContent = 'Cerrar';
   logOut.id = 'btnlogOut';
 
   //  formulario para crear contenido
@@ -71,18 +72,6 @@ export const Home = () => {
     }
   });
 
-  //  form crear contenido
-
-  formCreate.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    //  console.log("enviar form"); // aux para test
-    const content = document.getElementsByClassName('textArea')[0];
-    //  console.log(content) //formCreate.textArea
-    saveTextContent(content.value);
-
-    formCreate.reset();
-  });
-
   // crear elemento & renderizar??
 
   const renderContent = ((doc) => {
@@ -110,7 +99,7 @@ export const Home = () => {
     name.textContent = user;
     cont.textContent = doc.data().content;
     contEdit.textContent = doc.data().content;
-    date.textContent = doc.data().date;
+    
     edit.textContent = 'Editar';
     save.textContent = 'Guardar ✔';
     cancel.textContent = 'Cancelar ✘';
@@ -119,7 +108,7 @@ export const Home = () => {
     li.appendChild(name);
     li.appendChild(cont);
     li.appendChild(contEdit);
-    li.appendChild(date);
+    
 
     //  delete y edit visible solo para user signin
     if (doc.data().uid === auth.currentUser.uid) {
@@ -201,6 +190,26 @@ export const Home = () => {
       renderContent(doc);
     });
   });
+
+  //  form crear contenido
+
+  formCreate.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    //  console.log("enviar form"); // aux para test
+    const content = document.getElementsByClassName('textArea')[0];
+    //  console.log(content) //formCreate.textArea
+    saveTextContent(content.value);
+
+    formCreate.reset();
+  });
+
+  const goToTop = () => {
+    document.body.scrollIntoView({
+      behavior: 'smooth',
+    });
+  };
+
+  sectionTitle.addEventListener('click', goToTop);
 
   return div;
 };
