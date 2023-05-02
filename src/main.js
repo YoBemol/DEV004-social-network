@@ -1,12 +1,13 @@
 // Este es el punto de entrada de tu aplicacion
-//import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js" //ver authStateChanged
-import { auth, onAuthStateChanged  } from './lib/firebase.js';  //ver authStateChanged
+// import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"
+// import { auth, onAuthStateChanged } from './lib/firebase.js';
 import { Home } from './components/home.js';
 import { Login } from './components/login.js';
 import { Register } from './components/register.js';
 import { myFunction } from './lib/index.js';
 import { addRoutes, navigate } from './router/index.js';
-import './lib/firebase.js'
+import './lib/firebase.js';
+
 myFunction();
 
 addRoutes({
@@ -16,10 +17,10 @@ addRoutes({
   '/home': Home,
 });
 
-//ejecuta una función tan pronto como una página haya cargado
-/*window.onload = () => {
+// ejecuta una función tan pronto como una página haya cargado
+/* window.onload = () => {
     navigate(window.location.pathname);
-};*/
+}; */
 // Add event listener to handle back/forward button
 window.addEventListener('popstate', () => {
   navigate(window.location.pathname);
@@ -30,7 +31,7 @@ window.addEventListener('load', () => {
   navigate(window.location.pathname);
 });
 
-/*revisar ya esta en firebase.js
+/* revisar ya esta en firebase.js
 onAuthStateChanged(auth, async (user) => {
   //console.log(user)
-});*/
+}); */
