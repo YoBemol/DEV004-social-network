@@ -11,6 +11,7 @@ import {
   query,
   orderBy,
   updateDoc,
+  Timestamp,
 } from 'firebase/firestore';
 //  import { getAuth } from "firebase/auth"
 //  TODO: Add SDKs for Firebase products that you want to use
@@ -85,11 +86,15 @@ const db = getFirestore();
 
 //  aux onGetContent
 
-const queryContent = query(collection(db, 'content'), orderBy('date', 'desc'));
-const date = new Date();
+const queryContent = query(collection(db, 'content'), orderBy('dateCreate', 'desc'));
+
 export const saveTextContent = (content) => {
   addDoc(collection(db, 'content'), {
-    content, uid: auth.currentUser.uid, email: auth.currentUser.email, name: auth.currentUser.displayName, date: date.toLocaleString(),
+    content,
+    uid: auth.currentUser.uid,
+    email: auth.currentUser.email,
+    name: auth.currentUser.displayName,
+    dateCreate: Timestamp.now(),    
   }); // name: user.displayName,uid: user.uid,
 };
 

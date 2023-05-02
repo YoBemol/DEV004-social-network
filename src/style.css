@@ -197,7 +197,12 @@ li div {
 
 h2 {
     font-size: 21px;
-    font-weight: 800;
+    font-weight: 800;        
+}
+
+#goToTop:hover {
+    cursor: pointer;
+    color: #00c7566c;
 }
 
 #loginCreate {
