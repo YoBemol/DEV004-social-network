@@ -94,7 +94,7 @@ export const saveTextContent = (content) => {
     uid: auth.currentUser.uid,
     email: auth.currentUser.email,
     name: auth.currentUser.displayName,
-    dateCreate: Timestamp.now(),    
+    dateCreate: Timestamp.now(),
   }); // name: user.displayName,uid: user.uid,
 };
 

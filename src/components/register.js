@@ -8,7 +8,7 @@ export const Register = () => {
 
   const logo = document.createElement('img');
   logo.id = 'logo';
-  logo.src = './img/hoja.png';
+  logo.src = 'img/hoja.png';
 
   const registerSectionTitle = document.createElement('h1');
   registerSectionTitle.textContent = 'Crea tu cuenta';

@@ -99,7 +99,7 @@ export const Home = () => {
     name.textContent = user;
     cont.textContent = doc.data().content;
     contEdit.textContent = doc.data().content;
-    
+    date.textContent = doc.data().dateCreate.toDate();
     edit.textContent = 'Editar';
     save.textContent = 'Guardar ✔';
     cancel.textContent = 'Cancelar ✘';
@@ -108,7 +108,7 @@ export const Home = () => {
     li.appendChild(name);
     li.appendChild(cont);
     li.appendChild(contEdit);
-    
+    li.appendChild(date);
 
     //  delete y edit visible solo para user signin
     if (doc.data().uid === auth.currentUser.uid) {

@@ -14,7 +14,7 @@ export const Login = () => {
 
   const logo = document.createElement('img');
   logo.id = 'logo';
-  logo.src = './img/hoja.png';
+  logo.src = 'img/hoja.png';
 
   const homeSectionTitle = document.createElement('h1');
   homeSectionTitle.id = 'comment1';
