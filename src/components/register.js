@@ -1,6 +1,7 @@
 import { navigate } from '../router';
 //  import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"
 import { createUser } from '../lib/firebase.js';
+import logo1 from '../img/hoja.png';
 
 export const Register = () => {
   const registerSection = document.createElement('section');
@@ -8,7 +9,7 @@ export const Register = () => {
 
   const logo = document.createElement('img');
   logo.id = 'logo';
-  logo.src = 'img/hoja.png';
+  logo.src = logo1;
 
   const registerSectionTitle = document.createElement('h1');
   registerSectionTitle.textContent = 'Crea tu cuenta';

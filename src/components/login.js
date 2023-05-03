@@ -6,6 +6,7 @@ import {
 //  import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
 //  import { auth } from '../lib/firebase.js';
 import { navigate } from '../router';
+import logo1 from '../img/hoja.png';
 
 //  console.log({GoogleAuthProvider})
 export const Login = () => {
@@ -14,7 +15,7 @@ export const Login = () => {
 
   const logo = document.createElement('img');
   logo.id = 'logo';
-  logo.src = 'img/hoja.png';
+  logo.src = logo1;
 
   const homeSectionTitle = document.createElement('h1');
   homeSectionTitle.id = 'comment1';
