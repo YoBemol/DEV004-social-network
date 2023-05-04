@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { navigate } from '../router';
 //  import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"
 import { createUser } from '../lib/firebase.js';

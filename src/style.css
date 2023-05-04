@@ -5,80 +5,50 @@
     padding: 0px;
     font-family: 'Rubik', sans-serif;
     box-sizing: border-box;
-    /*font-size: 20px;*/
+    
 }
 
 body {
-    /*background-image: url('img/hoja.png');
-    background-size: 50px 50px;
-    background-position: center center;*/
-    /*background-image:
-        radial-gradient(#0099ff4d 1px, transparent 1px),
-        radial-gradient(#0099ff4d 1px, transparent 1px);
-        background-position: 0 0, 25px 25px;
-    background-size: 50px 50px;
-    mas claro agregar 4d a color*/
+    
     background-image: linear-gradient(rgba(5, 10, 5, 0.20), rgba(0, 199, 86, 0.20)), url('img/fondo.jpg');
-
     background-size: cover;
-
-
 }
 
 #root {
 
-    /*width: 480px;
-    height: 100vh;*/
     border: 1px solid #ccc;
     display: grid;
-    align-content: center;
-    justify-content: center;
-    /*eje vert y hor centrados*/
-
+    place-items: center;
+    
 }
 
 section {
+    
     text-align: center;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 450px;
-    height: 100vh;
-    /*VER AQUI 550
-    height: 100vh;*/
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);   
+    height: 35rem;
+    margin-top: 2%;
+    margin-bottom: 2%;
 
 }
 
-/*#homeSection{
-    height: 50%;
-}*/
 
-@media only screen and (min-width: 576px) {
+@media only screen and (max-width: 576px) {
     * {
-        font-size: 20px
-    }
-
-    .section {
-        width: 100%;
-    }
-
-    #divHome {
-        width: 100%;
-
+        font-size: 18px;
     }
 }
 
-/*
-@media (min-width: 550px) {
-    section {
-        width: 100%;
-        height: 100%;
-    }
-}
-*/
+
 #logo {
     width: 120px;
     padding: 30px;
+}
+
+#logoGoogle{
+    width: 60px;
 }
 
 h1 {
@@ -91,6 +61,10 @@ p {
     font-size: 18px;
     padding-bottom: 8px;
     margin-top: 4px;
+}
+
+#comment3 {
+    font-weight: bold;
 }
 
 input {
@@ -106,13 +80,17 @@ button {
     border: 0;
     cursor: pointer;
     transition: opacity 0.2s ease;
-    background-color: #00c7566c;
-    /*#c3cdca  #00AE7F  #0af8b1bd*/
-
+    background-color: #00c7566c;    
+    place-items: center;
 }
 
 button:hover {
     opacity: 0.8;
+}
+
+button #googleLogin {
+    align-items: center;
+    margin-left: 8px;
 }
 
 hr {
@@ -121,6 +99,7 @@ hr {
 
 #sectionRegister {
     padding-top: 69px;
+    width: 55vh;
 }
 
 #formRegister {
@@ -146,35 +125,28 @@ header {
     position: sticky;
     top: 0;
     width: 100%;
-    /*100*/
     background: rgba(255, 255, 255);
 }
 
-/*article{
-    padding: 10px 15px;
-}*/
 
 ul {
     list-style-type: none;
     padding: 0;
-    margin: 0 15%;
-    /*width: 90%; no estaba*/
+    margin: 0 10%;
 }
 
 li {
     padding: 20px;
     background: #f6f6f6;
-    /*#A5C4AD*/
     font-size: 20px;
     color: #555;
     position: relative;
     align-items: center;
     border: 1px solid #A5C4AD;
-    /*#e6e6e6*/
 
 }
 
-#del:hover{
+#del{
     cursor: pointer;
     color: red;
 }
@@ -208,7 +180,7 @@ h2 {
 
 #loginCreate {
     padding-top: 29px;
-    margin: 0 15%;
+    margin: 0 10%;
 }
 
 .textArea,
@@ -217,7 +189,6 @@ textarea {
     justify-content: center;
     min-height: 80px;
     width: 100%;
-    /*100*/
     padding: 0.9rem;
     resize: vertical;
     font-size: 16px;
@@ -232,7 +203,6 @@ nav {
     height: 49px;
     position: sticky;
     width: 100%;
-    /*100*/
     background: rgba(255, 255, 255);
 }
 
@@ -240,14 +210,14 @@ nav {
     font-weight: bold;
 }
 
-#btnSave:hover{
+#btnSave{
     background-color: white;
     border-width: thin;
     border-style: solid;
     border-color: green;
 }
 
-#btnCancel:hover{
+#btnCancel{
     background-color: white;
     border-width: thin;
     border-style: solid;
