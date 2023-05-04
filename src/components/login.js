@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import {
   loginEmail,
   loginGoogle,
@@ -7,6 +8,7 @@ import {
 //  import { auth } from '../lib/firebase.js';
 import { navigate } from '../router';
 import logo1 from '../img/hoja.png';
+import googleLogo from '../img/g-logopeq.png';
 
 //  console.log({GoogleAuthProvider})
 export const Login = () => {
@@ -29,7 +31,10 @@ export const Login = () => {
   const buttonGoogle = document.createElement('button');
   buttonGoogle.type = 'button';
   buttonGoogle.id = 'googleLogin';
-  buttonGoogle.textContent = 'Inicia sesión con Google';
+  buttonGoogle.textContent = 'Inicia sesión con Google  ';
+
+  const logoG = document.createElement('img');
+  logoG.src = googleLogo;
 
   //  boton crear cuenta con correo y contrasena
   const buttonRegister = document.createElement('button');
@@ -43,6 +48,10 @@ export const Login = () => {
   //  formulario para loguearse
   const formLogin = document.createElement('form');
   formLogin.id = 'loginForm';
+
+  const formSectionSubTitle = document.createElement('p');
+  formSectionSubTitle.id = 'comment3';
+  formSectionSubTitle.textContent = 'Inicia Sesión';
 
   const textEmail = document.createElement('p');
   textEmail.id = 'textEmail';
@@ -77,10 +86,12 @@ export const Login = () => {
   homeSection.appendChild(homeSectionTitle);
   homeSection.appendChild(homeSectionSubTitle);
   homeSection.appendChild(buttonGoogle);
+  buttonGoogle.appendChild(logoG);
   homeSection.appendChild(salt1);
   homeSection.appendChild(buttonRegister);
   homeSection.appendChild(line);
   homeSection.appendChild(formLogin);
+  formLogin.appendChild(formSectionSubTitle);
   formLogin.appendChild(textEmail);
   formLogin.appendChild(inputEmail);
   formLogin.appendChild(textPassword);

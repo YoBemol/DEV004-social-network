@@ -1,5 +1,7 @@
 //  import { signOut } from 'https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js';
 //  import { QuerySnapshot, doc } from 'firebase/firestore';
+/* eslint-disable no-alert */
+
 import {
   logOutUser,
   saveTextContent,
@@ -17,7 +19,7 @@ export const Home = () => {
 
   const headerHome = document.createElement('header');
   const sectionTitle = document.createElement('h2');
-  sectionTitle.textContent = '⬆nicio';
+  sectionTitle.textContent = '⬆ Top';
   sectionTitle.id = 'goToTop';
 
   const logOut = document.createElement('button');
@@ -31,7 +33,7 @@ export const Home = () => {
   const inputText = document.createElement('textarea');
   inputText.classList.add('textArea');//  inputText.className='textArea'
   inputText.id = 'inputText';
-  inputText.placeholder = 'Que esta pasando?';
+  inputText.placeholder = 'Comparte algo del medio ambiente';
   inputText.setAttribute('rows', '2');
   inputText.setAttribute('maxLength', '250');
   inputText.setAttribute('required', '');
