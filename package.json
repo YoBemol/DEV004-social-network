@@ -19,7 +19,7 @@
     "dev": "vite dev src",
     "start": "npm run dev",
     "build": "vite build",
-    "preview": "npm run build && vite preview"
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.4",

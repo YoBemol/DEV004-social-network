@@ -19,8 +19,8 @@ export const Home = () => {
 
   const headerHome = document.createElement('header');
   const sectionTitle = document.createElement('h2');
-  sectionTitle.textContent = '⬆ Top';
-  sectionTitle.id = 'goToTop';
+  sectionTitle.textContent = 'INFO NATURA';
+  sectionTitle.id = 'tittle';
 
   const logOut = document.createElement('button');
   logOut.textContent = 'Cerrar';
@@ -42,13 +42,13 @@ export const Home = () => {
   createPub.textContent = 'Crear';
   createPub.id = 'btnCreate';
 
-  //  contenedor para renderContent()
-  const ul = document.createElement('ul');
+  const ul = document.createElement('ul');// revisar    
   ul.id = 'muro';
 
   const navFooter = document.createElement('nav');
   const contentNav = document.createElement('p');
-  contentNav.textContent = 'Creado con ❤ por Belen Molina';
+  contentNav.textContent = '⬆ Top';
+  contentNav.id = 'goToTop';
 
   div.appendChild(headerHome);
   headerHome.appendChild(sectionTitle);
@@ -74,113 +74,20 @@ export const Home = () => {
     }
   });
 
-  // crear elemento & renderizar??
+  //  form crear contenido
 
-  const renderContent = ((doc) => {
-    const li = document.createElement('li');
-    const name = document.createElement('span');
-    const cont = document.createElement('span');
-    const contEdit = document.createElement('textarea');
-    const date = document.createElement('span');
-    const edit = document.createElement('button');
-    const save = document.createElement('button');
-    const cancel = document.createElement('button');
-    const del = document.createElement('div');
-    name.id = 'name';
-    save.id = 'btnSave';
-    cancel.id = 'btnCancel';
-    del.id = 'del';
+  formCreate.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    //  console.log("enviar form"); // aux para test
+    const content = document.getElementsByClassName('textArea')[0];
+    //  console.log(content) //formCreate.textArea
 
-    const user = doc.data().name == null ? doc.data().email || 'userINFO' : doc.data().name;
-    //  console.log(doc.data())
-
-    li.setAttribute('data-id', doc.id);
-    li.setAttribute('data-userid', doc.data().uid);
-    contEdit.setAttribute('class', 'oculto');
-
-    name.textContent = user;
-    cont.textContent = doc.data().content;
-    contEdit.textContent = doc.data().content;
-    date.textContent = doc.data().dateCreate.toDate();
-    edit.textContent = 'Editar';
-    save.textContent = 'Guardar ✔';
-    cancel.textContent = 'Cancelar ✘';
-    del.textContent = 'x';//  signo para eliminar publicaciones
-
-    li.appendChild(name);
-    li.appendChild(cont);
-    li.appendChild(contEdit);
-    li.appendChild(date);
-
-    //  delete y edit visible solo para user signin
-    if (doc.data().uid === auth.currentUser.uid) {
-      li.appendChild(del);
-      li.appendChild(edit);
-      li.appendChild(save);
-      li.appendChild(cancel);
-
-      save.setAttribute('class', 'oculto');
-      cancel.setAttribute('class', 'oculto');
+    if (content.value.trim() === '') {
+      alert('No válido, post vacío');
+      return false;
     }
-    ul.appendChild(li);
-
-    //  borrar publicacion
-    del.addEventListener('click', (e) => {
-      e.stopPropagation();
-      //  console.log('PRUEBA')
-      const id = e.target.parentElement.getAttribute('data-id');
-      const option = confirm('Estas segura/o de eliminar este post?');
-      if (option === true) {
-        deleteContent(id);
-      }
-    });
-
-    //  editar publicacion
-    edit.addEventListener('click', async (e) => {
-      e.stopPropagation();
-      const id = e.target.parentElement.getAttribute('data-id');
-      await getContent(id);
-      //  console.log('editar');
-
-      edit.setAttribute('class', 'oculto');
-      cont.setAttribute('class', 'oculto');
-      contEdit.setAttribute('class', 'visible');
-      save.setAttribute('class', 'visible');
-      cancel.setAttribute('class', 'visible');
-
-      //  console.log('contEditvalue', contEdit.value);
-
-      //  Diferente opcion para confirmar texto a editar
-      /*
-      let opcion = (prompt('Texto a editar', `${cont.data().content}`));
-      if (opcion !== null || opcion !== "") {
-        updateContent(id,{content: opcion})
-      }
-      */
-    });
-    //  eventos de editar guardar y cancelar
-    save.addEventListener('click', async (e) => {
-      e.stopPropagation();
-      const id = e.target.parentElement.getAttribute('data-id');
-      //  console.log('guardar');
-      if (contEdit.value !== null || contEdit.value !== '') {
-        await updateContent(id, { content: contEdit.value });
-        cancel.setAttribute('class', 'oculto');
-        save.setAttribute('class', 'oculto');
-        cont.setAttribute('class', 'visible');
-        edit.setAttribute('class', 'visible');
-      }
-    });
-
-    cancel.addEventListener('click', (e) => {
-      e.stopPropagation();
-      //  console.log('cancelar');
-      edit.setAttribute('class', 'visible');
-      cont.setAttribute('class', 'visible');
-      contEdit.setAttribute('class', 'oculto');
-      cancel.setAttribute('class', 'oculto');
-      save.setAttribute('class', 'oculto');
-    });
+    saveTextContent(content.value);
+    formCreate.reset();
   });
 
   //  listar contenido revisar
@@ -189,20 +96,114 @@ export const Home = () => {
     ul.innerHTML = '';
     querySnapshot.forEach((doc) => {
       //  console.log(doc.data())
-      renderContent(doc);
+      // const renderContent = ((doc) => {
+      const li = document.createElement('li');
+      const name = document.createElement('span');
+      const cont = document.createElement('span');
+      const contEdit = document.createElement('textarea');
+      const date = document.createElement('span');
+      const edit = document.createElement('button');
+      const save = document.createElement('button');
+      const cancel = document.createElement('button');
+      const del = document.createElement('div');
+      name.id = 'name';
+      save.id = 'btnSave';
+      cancel.id = 'btnCancel';
+      del.id = 'del';
+
+      const user = doc.data().name == null ? doc.data().email : doc.data().name;
+      //  console.log(doc.data())
+
+      li.setAttribute('data-id', doc.id);
+      li.setAttribute('data-userid', doc.data().uid);
+      contEdit.setAttribute('class', 'oculto');
+
+      name.textContent = user;
+      cont.textContent = doc.data().content;
+      contEdit.textContent = doc.data().content;
+      date.textContent = doc.data().dateCreate.toDate();
+      edit.textContent = 'Editar';
+      save.textContent = 'Guardar ✔';
+      cancel.textContent = 'Cancelar ✘';
+      del.textContent = 'x';//  signo para eliminar publicaciones
+
+      li.appendChild(name);
+      li.appendChild(cont);
+      li.appendChild(contEdit);
+      li.appendChild(date);
+
+      //  delete y edit visible solo para user signin
+
+      if (doc.data().uid === auth.currentUser.uid) { // revisar problemas con usuario nuevo
+        li.appendChild(del);
+        li.appendChild(edit);
+        li.appendChild(save);
+        li.appendChild(cancel);
+
+        save.setAttribute('class', 'oculto');
+        cancel.setAttribute('class', 'oculto');
+      }
+      ul.appendChild(li);
+
+      //  borrar publicacion
+      del.addEventListener('click', (e) => {
+        e.stopPropagation();
+        //  console.log('PRUEBA')
+        const id = e.target.parentElement.getAttribute('data-id');
+        const option = confirm('Estas segura/o de eliminar este post?');
+        if (option === true) {
+          deleteContent(id);
+        }
+      });
+
+      //  editar publicacion
+      edit.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const id = e.target.parentElement.getAttribute('data-id');
+        await getContent(id);
+        //  console.log('editar');
+
+        edit.setAttribute('class', 'oculto');
+        cont.setAttribute('class', 'oculto');
+        contEdit.setAttribute('class', 'visible');
+        save.setAttribute('class', 'visible');
+        cancel.setAttribute('class', 'visible');
+
+        //  console.log('contEditvalue', contEdit.value);
+
+        //  Diferente opcion para confirmar texto a editar
+        /*
+          let opcion = (prompt('Texto a editar', `${cont.data().content}`));
+          if (opcion !== null || opcion !== "") {
+            updateContent(id,{content: opcion})
+          }
+          */
+      });
+      //  eventos de editar: guardar y cancelar
+      save.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const id = e.target.parentElement.getAttribute('data-id');
+        //  console.log('guardar');
+        if (contEdit.value !== null || contEdit.value !== '') {
+          await updateContent(id, { content: contEdit.value });
+          cancel.setAttribute('class', 'oculto');
+          save.setAttribute('class', 'oculto');
+          cont.setAttribute('class', 'visible');
+          edit.setAttribute('class', 'visible');
+        }
+      });
+
+      cancel.addEventListener('click', (e) => {
+        e.stopPropagation();
+        //  console.log('cancelar');
+        edit.setAttribute('class', 'visible');
+        cont.setAttribute('class', 'visible');
+        contEdit.setAttribute('class', 'oculto');
+        cancel.setAttribute('class', 'oculto');
+        save.setAttribute('class', 'oculto');
+      });
+      // });
     });
-  });
-
-  //  form crear contenido
-
-  formCreate.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    //  console.log("enviar form"); // aux para test
-    const content = document.getElementsByClassName('textArea')[0];
-    //  console.log(content) //formCreate.textArea
-    saveTextContent(content.value);
-
-    formCreate.reset();
   });
 
   const goToTop = () => {
@@ -211,7 +212,7 @@ export const Home = () => {
     });
   };
 
-  sectionTitle.addEventListener('click', goToTop);
+  contentNav.addEventListener('click', goToTop);
 
   return div;
 };

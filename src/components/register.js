@@ -48,6 +48,7 @@ export const Register = () => {
   const buttonRegister = document.createElement('button');
   buttonRegister.type = 'submit';
   buttonRegister.textContent = 'Registrarse';
+  buttonRegister.id = 'btnReg';
 
   const salt4 = document.createElement('br');
 
