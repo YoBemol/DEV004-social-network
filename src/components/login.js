@@ -8,7 +8,7 @@ import {
 //  import { auth } from '../lib/firebase.js';
 import { navigate } from '../router';
 import logo1 from '../img/hoja.png';
-import googleLogo from '../img/g-logopeq.png';
+import btnGoogle from '../img/btn_google.png';
 
 //  console.log({GoogleAuthProvider})
 export const Login = () => {
@@ -31,10 +31,10 @@ export const Login = () => {
   const buttonGoogle = document.createElement('button');
   buttonGoogle.type = 'button';
   buttonGoogle.id = 'googleLogin';
-  buttonGoogle.textContent = 'Inicia sesión con Google  ';
 
   const logoG = document.createElement('img');
-  logoG.src = googleLogo;
+  logoG.src = btnGoogle;
+  logoG.id = 'logoG';
 
   //  boton crear cuenta con correo y contrasena
   const buttonRegister = document.createElement('button');

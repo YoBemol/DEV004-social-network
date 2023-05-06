@@ -5,6 +5,7 @@ import {
   collection,
   addDoc,
   getDoc,
+  getDocs,
   onSnapshot,
   deleteDoc,
   doc,
@@ -88,6 +89,7 @@ const db = getFirestore();
 
 const queryContent = query(collection(db, 'content'), orderBy('dateCreate', 'desc'));
 
+// crear content
 export const saveTextContent = (content) => {
   addDoc(collection(db, 'content'), {
     content,
@@ -98,7 +100,11 @@ export const saveTextContent = (content) => {
   }); // name: user.displayName,uid: user.uid,
 };
 
+// obtener content
 export const onGetContent = (callback) => onSnapshot(queryContent, callback);
+
+// obtener todo el contenido
+export const getFullContent = () => getDocs(collection(db, 'content'));
 
 //  delete content
 export const deleteContent = (id) => deleteDoc(doc(db, 'content', id));

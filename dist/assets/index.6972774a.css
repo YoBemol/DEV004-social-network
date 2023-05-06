@@ -10,9 +10,8 @@
 
 body {
     
-    background-image:  url('img/fondo2.jpg');
+    background-image: linear-gradient(rgba(5, 10, 5, 0.20), rgba(0, 199, 86, 0.20)), url('/assets/fondo.607460f6.jpg');
     background-size: cover;
-    background-attachment: fixed;
 }
 
 #root {
@@ -28,16 +27,18 @@ section {
     text-align: center;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);   
+    height: 35rem;
+    margin-top: 2%;
+    margin-bottom: 2%;
 
+}
 
 @media only screen and (max-width: 576px) {
     * {
         font-size: 18px;
     }
 }
-
 
 #logo {
     width: 120px;
@@ -51,7 +52,7 @@ section {
 h1 {
     text-align: center;
     font-weight: 800;
-    padding: 0 20px;
+    padding: 0 20px 20px;
 }
 
 p {
@@ -65,15 +66,7 @@ p {
 }
 
 input {
-    font-size: 1rem;
-    min-height: 2.75rem;
-    width: 80%;
-    border: 1px solid rgb(178, 178, 178);
-    border-radius: 0.25rem;
-    line-height: 1.25rem;
-    letter-spacing: 0.2px;
-    padding: 0px 1rem;
-    
+    font-size: 16px;
 }
 
 button {
@@ -89,71 +82,32 @@ button {
     place-items: center;
 }
 
- #btnRegister, #btnLogin, #btnReg, #btnBack {
-    font-size: 0.875rem;
-    min-height: 2.75rem;
-    width: 80%;
-    margin-top: 16px;
-    margin-bottom: 10px;
-    padding: 4px 12px;
-    border-radius: 5px;
-    border: 0;
-    cursor: pointer;
-    transition: opacity 0.2s ease;        
-    place-items: center;
-    
+button:hover {
+    opacity: 0.8;
 }
 
-#googleLogin {    
-    
-    justify-content: center;    
-    align-items: center;    
-    width: 80%;
-    /*margin: 0.25rem 0px;*/
-    border-radius: 5px;
-    border: 1px solid rgb(178, 178, 178);
-    background-color: rgb(255, 255, 255);
-    /*box-shadow: none;*/
-    /*padding: 0px;*/
-    line-height: 1rem;
-    height: auto;
-    cursor: pointer;
-}
-
-#btnLogin, #btnReg, #btnCreate {
-    background-color: #00c7566c;
-}
-
-#btnRegister, #btnBack, #btnlogOut {    
-    background-color: rgb(178, 178, 178, .5);
-    color: #FFFFFF;
-}
-
-#btnlogOut, #btnCreate{
-    font-size: 1rem;
-    min-height: 2.75rem;
-    margin-top: 16px;
-    margin-bottom: 10px;
-    padding: 4px 12px;
-    border-radius: 5px;
-    border: 0;
-    cursor: pointer;
-    transition: opacity 0.2s ease;        
-    place-items: center;
+button #googleLogin {
+    align-items: center;
+    margin-left: 8px;
 }
 
 hr {
     margin: 20px 70px;
 }
 
+#sectionRegister {
+    padding-top: 69px;
+    width: 55vh;
+}
 
-#homeSection, #sectionRegister {
-    max-width: 31rem;
-    width: 100%;
-    padding: 1rem;
+#formRegister {
+    text-align: center;
+    margin: 0 auto;
+
 }
 
 /*home, prblemas con mobile first*/
+
 #divHome {
     width: 100%;
     justify-content: center;
@@ -163,7 +117,7 @@ hr {
 header {
     align-items: center;
     border-bottom: 1px solid #ccc;
-    height: 60px;
+    height: 49px;
     display: flex;
     justify-content: space-between;
     padding: 0 15px;
@@ -172,7 +126,6 @@ header {
     width: 100%;
     background: rgba(255, 255, 255);
 }
-
 
 ul {
     list-style-type: none;
@@ -249,7 +202,6 @@ nav {
     position: sticky;
     width: 100%;
     background: rgba(255, 255, 255);
-    font-weight: bold;
 }
 
 #name {

@@ -1,6 +1,6 @@
 // importamos la funcion que vamos a testear
 
-import firebaseFn from '../src/lib/firebase.js';
+import * as firebaseFn from '../src/lib/firebase.js';
 import { Login } from '../src/components/login.js';
 import { addRoutes } from '../src/router/index.js';
 import { Register } from '../src/components/register.js';
